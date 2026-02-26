@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RedCrest – Fresh Taste for Every Family</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-content">
+    <h1 class="logo">RedCrest</h1>
+    <nav>
+      <a href="#" onclick="showSection('home')">Home</a>
+      <a href="#" onclick="showSection('products')">Products</a>
+      <a href="#" onclick="showSection('about')">About</a>
+      <a href="#" onclick="showSection('contact')">Contact</a>
+      <a href="#" onclick="showSection('cart')">Cart</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="home" class="section active hero">
+  <div class="container hero-content">
+    <div class="hero-text">
+      <h2>Fresh Taste, Made for Every Family Moment.</h2>
+      <p>Crafted with the freshest ingredients, prepared hygienically, and trusted by families who care about flavor and time.</p>
+      <button class="primary-btn" onclick="showSection('products')">Place Your Order</button>
+    </div>
+    <div class="hero-image">
+      <div class="image-placeholder">Fresh Tomato Paste Jar</div>
+    </div>
+  </div>
+
+  <div class="trust-grid container">
+    <div class="trust-card">🍅 Rich, Fresh Tomato Taste</div>
+    <div class="trust-card">🕒 Saves Cooking Time Instantly</div>
+    <div class="trust-card">🏠 Family-Tested Recipes</div>
+    <div class="trust-card">🧼 Hygienically Prepared With Care</div>
+  </div>
+</section>
+
+<section id="products" class="section">
+  <div class="container">
+    <h2 class="section-title">Three Flavors. One Fresh Choice.</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <h3>Classic</h3>
+        <p>Everyday rich tomato flavor for family meals.</p>
+        <button class="primary-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <h3>Spicy</h3>
+        <p>A bold twist for those who love a kick.</p>
+        <button class="primary-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <h3>Herb Infused</h3>
+        <p>Fresh herbs blended for modern kitchens.</p>
+        <button class="primary-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section light-bg">
+  <div class="container">
+    <h2 class="section-title">About RedCrest</h2>
+    <p class="about-text">
+      RedCrest is created for modern families who value freshness, hygiene, and comforting flavor.
+      Every jar is prepared with care to bring warmth and richness to everyday cooking.
+    </p>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title">Contact Us</h2>
+    <form class="contact-form" onsubmit="return handleContactSubmit(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea placeholder="Your Message"></textarea>
+      <button class="primary-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<section id="cart" class="section light-bg">
+  <div class="container">
+    <h2 class="section-title">Your Cart</h2>
+    <div class="cart-box">No items yet.</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    © 2026 RedCrest — Fresh for Every Family.
+  </div>
+</footer>
+
+</body>
+</html>
