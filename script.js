@@ -241,3 +241,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleMobileMenu() {
   document.body.classList.toggle('menu-open');
 }
+function toggleMobileMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.toggle('mobile-active');
+}
+
+// Close menu when a link is clicked
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('mobile-active');
+  });
+});
