@@ -599,4 +599,35 @@ p {
     display: none;
   }
 }
+/* Hamburger Button Styling */
+.mobile-menu-btn {
+  display: none; /* Hidden by default on desktop */
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--red-primary);
+  cursor: pointer;
+}
 
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block; /* Show on mobile */
+  }
+
+  .nav-links {
+    display: none; /* Hide standard links */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* When the menu is toggled open */
+  .nav-links.mobile-active {
+    display: flex;
+  }
+}
