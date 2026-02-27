@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RedCrest - Fresh Taste for Every Family Moment</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCrest - Fresh Taste for Every Family Moment</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
 <nav class="navbar">
   <div class="nav-container">
     <a class="logo" onclick="showSection('home')">RedCrest</a>
-    <ul class="nav-links">
+    
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    
+    <ul class="nav-links" id="navLinks">
       <li><a onclick="showSection('products')" class="nav-link" data-section="products">Products</a></li>
       <li><a onclick="showSection('about')" class="nav-link" data-section="about">About</a></li>
       <li><a onclick="showSection('contact')" class="nav-link" data-section="contact">Contact</a></li>
@@ -21,7 +24,6 @@
   </div>
 </nav>
 
-<!-- HOME -->
 <div id="home" class="page-section active">
   <section class="hero">
     <div class="container">
@@ -34,7 +36,7 @@
           </p>
           <div class="cta-buttons">
             <button class="btn btn-primary" onclick="showSection('products')">Place Your Order</button>
-            <button class="btn btn-secondary" onclick="showSection('products')">Explore Our Flavors</button>
+            <button class="btn btn-secondary" onclick="showSection('about')">Our Story</button>
           </div>
         </div>
         <div class="hero-image">
@@ -51,15 +53,21 @@
         <div class="trust-item"><div class="trust-icon">🍅</div><h4>Rich, Fresh Tomato Taste</h4><p>Sun-ripened tomatoes, carefully selected</p></div>
         <div class="trust-item"><div class="trust-icon">⏱️</div><h4>Saves Cooking Time Instantly</h4><p>Ready when you are, no prep needed</p></div>
         <div class="trust-item"><div class="trust-icon">👨‍👩‍👧‍👦</div><h4>Family-Tested Recipes</h4><p>Loved by families across Pakistan</p></div>
-        <div class="trust-item"><div class="trust-icon">✨</div><h4>Hygienically Prepared With Care</h4><p>Safe, clean, trusted quality</p></div>
+        <div class="trust-item"><div class="trust-icon">✨</div><h4>Hygienically Prepared</h4><p>Safe, clean, trusted quality</p></div>
       </div>
     </div>
   </section>
+</div>
 
+<div id="products" class="page-section">
+  <section class="page-header">
+    <div class="container">
+      <h1>Our Products</h1>
+      <p>Fresh flavors crafted for every family moment</p>
+    </div>
+  </section>
   <section class="products-section">
     <div class="container">
-      <h2 class="section-header">Choose Your Flavor</h2>
-      <p class="section-subtitle">Three varieties, endless possibilities</p>
       <div class="products-grid">
         <div class="product-card">
           <div class="product-image"><img src="images/redcrest-classic.webp" alt="RedCrest Classic"></div>
@@ -122,26 +130,6 @@
   </section>
 </div>
 
-<!-- PRODUCTS PAGE -->
-<div id="products" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Our Products</h1>
-      <p>Fresh flavors crafted for every family moment</p>
-    </div>
-  </section>
-  <section class="products-section">
-    <!-- Same 3 product cards as home preview -->
-    <div class="container">
-      <div class="products-grid">
-        <!-- Copy the exact same 3 product cards from home section above -->
-        <!-- [Same structure as home preview - no need to duplicate code here] -->
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- CART PAGE -->
 <div id="cart" class="page-section">
   <section class="page-header">
     <div class="container">
@@ -150,24 +138,18 @@
     </div>
   </section>
   <div class="container">
-    <div class="cart-layout">
-      <div class="cart-items" id="cartContent">
-        <div id="cartItemsList"></div>
-      </div>
+    <div class="cart-layout" id="cartLayout" style="display:none;">
+      <div class="cart-items" id="cartItemsList">
+        </div>
       <div class="cart-summary">
         <h3>Order Summary</h3>
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span id="cartSubtotal">Rs. 0</span>
-        </div>
-        <div class="summary-row total">
-          <span>Total</span>
-          <span id="cartTotal">Rs. 0</span>
-        </div>
+        <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">Rs. 0</span></div>
+        <div class="summary-row total"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
         <button class="btn btn-primary" style="width:100%; margin-top:2rem;" onclick="handleCheckout()">Proceed to Checkout</button>
       </div>
     </div>
-    <div id="emptyCart" class="empty-cart" style="display:block;">
+    
+    <div id="emptyCart" class="empty-cart">
       <div class="empty-cart-icon">🛒</div>
       <h3>Your cart is empty</h3>
       <p>Add some delicious RedCrest jars to get started!</p>
@@ -176,7 +158,6 @@
   </div>
 </div>
 
-<!-- ABOUT PAGE -->
 <div id="about" class="page-section">
   <section class="page-header">
     <div class="container">
@@ -204,7 +185,6 @@
   </div>
 </div>
 
-<!-- CONTACT PAGE -->
 <div id="contact" class="page-section">
   <section class="page-header">
     <div class="container">
@@ -216,32 +196,14 @@
     <div class="contact-layout">
       <div class="contact-info">
         <h3>Visit Us</h3>
-        <div class="info-item">
-          <span class="info-label">Phone</span>
-          <span class="info-value">+92 300 1234567</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Email</span>
-          <span class="info-value">hello@redcrest.pk</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Address</span>
-          <span class="info-value">Peshawar, Khyber Pakhtunkhwa</span>
-        </div>
+        <div class="info-item"><span class="info-label">Phone</span><span class="info-value">+92 300 1234567</span></div>
+        <div class="info-item"><span class="info-label">Email</span><span class="info-value">hello@redcrest.pk</span></div>
+        <div class="info-item"><span class="info-label">Address</span><span class="info-value">Peshawar, KP</span></div>
       </div>
       <form class="contact-form-container" onsubmit="handleContactSubmit(event)">
-        <div class="form-group">
-          <label class="form-label">Name</label>
-          <input type="text" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea class="form-textarea" required></textarea>
-        </div>
+        <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" required></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" required></textarea></div>
         <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
     </div>
