@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RedCrest - Fresh Taste for Every Family Moment</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCrest - Fresh Taste for Every Family Moment</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -21,9 +21,7 @@
   </div>
 </nav>
 
-<!-- HOME -->
 <div id="home" class="page-section active">
-
   <section class="hero">
     <div class="container">
       <div class="hero-content">
@@ -31,7 +29,7 @@
           <span class="hero-badge">Crafted with Care</span>
           <h1>Fresh Taste, Made for Every Family Moment.</h1>
           <p class="hero-subline">
-            Crafted with the freshest ingredients, prepared hygienically, and trusted by families who care about flavor and time.
+            Crafted with the freshest ingredients, prepared hygienically, and trusted by families across Pakistan.
           </p>
           <div class="cta-buttons">
             <button class="btn btn-primary" onclick="showSection('products')">Place Your Order</button>
@@ -55,61 +53,12 @@
         <div class="trust-item"><div class="trust-icon">🍅</div><h4>Rich, Fresh Tomato Taste</h4><p>Sun-ripened tomatoes, carefully selected</p></div>
         <div class="trust-item"><div class="trust-icon">⏱️</div><h4>Saves Cooking Time Instantly</h4><p>Ready when you are, no prep needed</p></div>
         <div class="trust-item"><div class="trust-icon">👨‍👩‍👧‍👦</div><h4>Family-Tested Recipes</h4><p>Loved by families across Pakistan</p></div>
-        <div class="trust-item"><div class="trust-icon">✨</div><h4>Hygienically Prepared With Care</h4><p>Safe, clean, trusted quality</p></div>
+        <div class="trust-item"><div class="trust-icon">✨</div><h4>Hygienically Prepared</h4><p>Safe, clean, trusted quality</p></div>
       </div>
     </div>
   </section>
-
-  <!-- Preview Flavors -->
-  <section class="products-section">
-    <div class="container">
-      <h2 class="section-header">Choose Your Flavor</h2>
-      <p class="section-subtitle">Three varieties, endless possibilities</p>
-      <div class="products-grid">
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-classic.webp" alt="RedCrest Classic Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge">Bestseller</span>
-            <h3>RedCrest Classic</h3>
-            <div class="product-price">Rs. 2,500</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="showSection('products')">View Details</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-spicy.webp" alt="RedCrest Spicy Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-new">New</span>
-            <h3>RedCrest Spicy</h3>
-            <div class="product-price">Rs. 2,700</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="showSection('products')">View Details</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-herb.webp" alt="RedCrest Herb Infused Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-limited">Limited</span>
-            <h3>RedCrest Herb Infused</h3>
-            <div class="product-price">Rs. 2,800</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="showSection('products')">View Details</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
 </div>
 
-<!-- PRODUCTS PAGE -->
 <div id="products" class="page-section">
   <section class="page-header">
     <div class="container">
@@ -122,33 +71,51 @@
     <div class="container">
       <div class="products-grid">
 
-        <div class="product-card">
-          <div class="product-image"><img src="images/redcrest-classic.webp"></div>
+        <div class="product-card" data-name="RedCrest Classic" data-price="2500">
+          <div class="product-image"><img src="images/redcrest-classic.webp" alt="Classic"></div>
           <div class="product-info">
             <span class="product-badge">Bestseller</span>
             <h3>RedCrest Classic</h3>
+            <p>Sun-ripened tomatoes, slow-cooked for deep flavor.</p>
             <div class="product-price">Rs. 2,500</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Classic',2500,this)">Add to Cart</button>
+            <div class="quantity-selector">
+              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
-        <div class="product-card">
-          <div class="product-image"><img src="images/redcrest-spicy.webp"></div>
+        <div class="product-card" data-name="RedCrest Spicy" data-price="2700">
+          <div class="product-image"><img src="images/redcrest-spicy.webp" alt="Spicy"></div>
           <div class="product-info">
             <span class="product-badge badge-new">New</span>
             <h3>RedCrest Spicy</h3>
+            <p>All the richness of classic with a bold kick of chili.</p>
             <div class="product-price">Rs. 2,700</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Spicy',2700,this)">Add to Cart</button>
+            <div class="quantity-selector">
+              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
-        <div class="product-card">
-          <div class="product-image"><img src="images/redcrest-herb.webp"></div>
+        <div class="product-card" data-name="RedCrest Herb Infused" data-price="2800">
+          <div class="product-image"><img src="images/redcrest-herb.webp" alt="Herb"></div>
           <div class="product-info">
             <span class="product-badge badge-limited">Limited</span>
             <h3>RedCrest Herb Infused</h3>
+            <p>Tomato goodness with fragrant herbs and garlic.</p>
             <div class="product-price">Rs. 2,800</div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Herb Infused',2800,this)">Add to Cart</button>
+            <div class="quantity-selector">
+              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="handleAddToCart(this)">Add to Cart</button>
           </div>
         </div>
 
@@ -157,93 +124,9 @@
   </section>
 </div>
 
-<!-- KEEPING REST OF YOUR SECTIONS SAME -->
-<!-- About, Contact, Cart, Footer remain unchanged -->
+<div id="cart" class="page-section"></div>
+<div id="about" class="page-section"></div>
+<div id="contact" class="page-section"></div>
 
-
-<section class="page-header">
-  <div class="container">
-    <h1>Our Products</h1>
-    <p>Fresh flavors crafted for every family moment</p>
-  </div>
-</section>
-
-<section class="products-section">
-  <div class="container">
-    <div class="products-grid">
-
-      <!-- CLASSIC -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="images/redcrest-classic.webp" alt="RedCrest Classic Tomato Paste">
-        </div>
-        <div class="product-info">
-          <span class="product-badge">Bestseller</span>
-          <h3>RedCrest Classic</h3>
-          <p>The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
-          <div class="product-price">Rs. 2,500</div>
-          <div class="quantity-selector">
-            <span class="quantity-label">Quantity:</span>
-            <div class="quantity-controls">
-              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-              <span class="qty-display">1</span>
-              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Classic', 2500, this)">
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- SPICY -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="images/redcrest-spicy.webp" alt="RedCrest Spicy Tomato Paste">
-        </div>
-        <div class="product-info">
-          <span class="product-badge badge-new">New</span>
-          <h3>RedCrest Spicy</h3>
-          <p>Turn up the heat. All the richness of our classic, with a bold kick of chili. Perfect for those who like it hot.</p>
-          <div class="product-price">Rs. 2,700</div>
-          <div class="quantity-selector">
-            <span class="quantity-label">Quantity:</span>
-            <div class="quantity-controls">
-              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-              <span class="qty-display">1</span>
-              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Spicy', 2700, this)">
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- HERB -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="images/redcrest-herb.webp" alt="RedCrest Herb Infused Tomato Paste">
-        </div>
-        <div class="product-info">
-          <span class="product-badge badge-limited">Limited</span>
-          <h3>RedCrest Herb Infused</h3>
-          <p>Elevated everyday cooking. Classic tomato goodness with fragrant herbs and roasted garlic. Your secret ingredient.</p>
-          <div class="product-price">Rs. 2,800</div>
-          <div class="quantity-selector">
-            <span class="quantity-label">Quantity:</span>
-            <div class="quantity-controls">
-              <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-              <span class="qty-display">1</span>
-              <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Herb Infused', 2800, this)">
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+</body>
+</html>
