@@ -553,4 +553,50 @@ p {
   
   .cta-buttons { flex-direction: column; }
 }
+/* MOBILE CART ICON - FIXED */
+@media (max-width: 768px) {
+  /* Show hamburger menu + cart icon */
+  .nav-links {
+    display: flex !important;
+    position: fixed;
+    top: 70px;      /* Below navbar */
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    gap: 1rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Show menu when active */
+  body.menu-open .nav-links {
+    transform: translateY(0);
+  }
+  
+  /* Mobile hamburger button */
+  .mobile-menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--charcoal);
+  }
+  
+  /* Cart stays visible on mobile */
+  .cart-icon {
+    order: -1;      /* Always first */
+    margin-top: 0.5rem;
+  }
+}
+
+/* Hide hamburger on desktop */
+@media (min-width: 769px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+}
 
