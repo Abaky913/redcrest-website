@@ -905,3 +905,20 @@ p {
     text-align: left;
   }
 }
+
+.product-image {
+  text-align: center;
+  padding: 20px;
+}
+
+.product-image img {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
