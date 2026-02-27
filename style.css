@@ -922,3 +922,28 @@ p {
 .product-card:hover .product-image img {
   transform: scale(1.05);
 }
+/* Enhanced "Zoomed" Product Images */
+.product-image {
+  height: 320px; /* Slightly taller container */
+  background: var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Reduced padding to let the image grow */
+  overflow: hidden; /* Keeps the zoom inside the card */
+}
+
+.product-image img {
+  max-width: 90%; /* Increased from 220px/width:100% */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother zoom */
+  transform: scale(1.15); /* Permanent slight zoom-in look */
+}
+
+/* Extra zoom effect when the user hovers over the card */
+.product-card:hover .product-image img {
+  transform: scale(1.3); 
+}
+
+
