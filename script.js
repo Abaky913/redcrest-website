@@ -237,3 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const checkoutBtn = document.querySelector('.cart-summary .btn-primary');
   if (checkoutBtn) checkoutBtn.onclick = handleCheckout;
 });
+// Mobile menu toggle
+function toggleMobileMenu() {
+  document.body.classList.toggle('menu-open');
+}
