@@ -942,16 +942,20 @@ p {
 }
 
 /* Extra zoom effect when the user hovers over the card */
-.product-card:hover .product-image img {
-  transform: scale(1.3); 
-}
-/* Hero Image Update - NEW */
+/* Hero Image - BIGGER + ZOOM */
 .hero-main-image {
   width: 100%;
-  height: 400px;
+  height: 500px;        /* ↑ WAS 400px → NOW 500px (25% bigger) */
   object-fit: cover;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  transition: all 0.3s ease;  /* Smooth zoom */
 }
+
+.hero-main-image:hover {
+  transform: scale(1.05);     /* Zoom 5% on hover */
+  box-shadow: var(--shadow-hover);  /* Bigger shadow */
+}
+
 
 
