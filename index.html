@@ -9,134 +9,93 @@
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
     <a class="logo" onclick="showSection('home')">RedCrest</a>
     <ul class="nav-links">
-      <li><a onclick="showSection('products')" class="nav-link" data-section="products">Products</a></li>
-      <li><a onclick="showSection('about')" class="nav-link" data-section="about">About</a></li>
-      <li><a onclick="showSection('contact')" class="nav-link" data-section="contact">Contact</a></li>
+      <li><a onclick="showSection('products')" class="nav-link">Products</a></li>
+      <li><a onclick="showSection('about')" class="nav-link">About</a></li>
+      <li><a onclick="showSection('contact')" class="nav-link">Contact</a></li>
       <li><a onclick="showSection('cart')" class="cart-icon" id="cartIcon">Cart (0)</a></li>
     </ul>
   </div>
 </nav>
 
+<!-- HOME -->
 <div id="home" class="page-section active">
+
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
           <span class="hero-badge">Crafted with Care</span>
           <h1>Fresh Taste, Made for Every Family Moment.</h1>
-          <p class="hero-subline">Crafted with the freshest ingredients, prepared hygienically, and trusted by families who care about flavor and time.</p>
+          <p class="hero-subline">
+            Crafted with the freshest ingredients, prepared hygienically, and trusted by families who care about flavor and time.
+          </p>
           <div class="cta-buttons">
             <button class="btn btn-primary" onclick="showSection('products')">Place Your Order</button>
             <button class="btn btn-secondary" onclick="showSection('products')">Explore Our Flavors</button>
           </div>
         </div>
-        <div class="hero-image">
-          <div class="hero-image-placeholder">
-            RedCrest Jar on Marble Counter<br>
-            Natural Light · Fresh Tomatoes Nearby
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="trust-section">
-    <div class="container">
-      <h2 class="trust-title">Made with Your Family in Mind</h2>
-      <div class="trust-grid">
-        <div class="trust-item">
-          <div class="trust-icon">🍅</div>
-          <h4>Rich, Fresh Tomato Taste</h4>
-          <p>Sun-ripened tomatoes, carefully selected</p>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">⏱️</div>
-          <h4>Saves Cooking Time Instantly</h4>
-          <p>Ready when you are, no prep needed</p>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">👨‍👩‍👧‍👦</div>
-          <h4>Family-Tested Recipes</h4>
-          <p>Loved by families across Pakistan</p>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">✨</div>
-          <h4>Hygienically Prepared With Care</h4>
-          <p>Safe, clean, trusted quality</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- FLAVORS PREVIEW -->
   <section class="products-section">
     <div class="container">
       <h2 class="section-header">Choose Your Flavor</h2>
       <p class="section-subtitle">Three varieties, endless possibilities</p>
-      
+
       <div class="products-grid">
-        <div class="product-card" onclick="showProductDetail('classic')">
-          <div class="product-image">RedCrest Classic Jar<br>with Fresh Tomatoes</div>
+
+        <div class="product-card" onclick="showSection('products')">
+          <div class="product-image">
+            <img src="images/redcrest-classic.webp" alt="RedCrest Classic Tomato Paste">
+          </div>
           <div class="product-info">
             <span class="product-badge">Bestseller</span>
             <h3>RedCrest Classic</h3>
-            <p>The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
             <div class="product-price">Rs. 2,500</div>
-            <button class="btn btn-primary" style="width: 100%;">View Details</button>
+            <button class="btn btn-primary" style="width:100%;">View Details</button>
           </div>
         </div>
-        
-        <div class="product-card" onclick="showProductDetail('spicy')">
-          <div class="product-image">RedCrest Spicy Jar<br>with Red Chilies</div>
+
+        <div class="product-card" onclick="showSection('products')">
+          <div class="product-image">
+            <img src="images/redcrest-spicy.webp" alt="RedCrest Spicy Tomato Paste">
+          </div>
           <div class="product-info">
             <span class="product-badge badge-new">New</span>
             <h3>RedCrest Spicy</h3>
-            <p>Turn up the heat. All the richness of our classic, with a bold kick of chili. Perfect for those who like it hot.</p>
             <div class="product-price">Rs. 2,700</div>
-            <button class="btn btn-primary" style="width: 100%;">View Details</button>
+            <button class="btn btn-primary" style="width:100%;">View Details</button>
           </div>
         </div>
-        
-        <div class="product-card" onclick="showProductDetail('herb')">
-          <div class="product-image">RedCrest Herb Jar<br>with Fresh Basil</div>
+
+        <div class="product-card" onclick="showSection('products')">
+          <div class="product-image">
+            <img src="images/redcrest-herb.webp" alt="RedCrest Herb Infused Tomato Paste">
+          </div>
           <div class="product-info">
             <span class="product-badge badge-limited">Limited</span>
             <h3>RedCrest Herb Infused</h3>
-            <p>Elevated everyday cooking. Classic tomato goodness with fragrant herbs and roasted garlic. Your secret ingredient.</p>
             <div class="product-price">Rs. 2,800</div>
-            <button class="btn btn-primary" style="width: 100%;">View Details</button>
+            <button class="btn btn-primary" style="width:100%;">View Details</button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="newsletter">
-    <div class="container">
-      <h2>Stay Fresh in Your Kitchen</h2>
-      <p>Join our family of home cooks. Get weekly recipes, cooking tips, and exclusive offers.</p>
-      <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
-        <input type="email" class="newsletter-input" placeholder="Your email address" required>
-        <button type="submit" class="newsletter-btn">Sign Me Up</button>
-      </form>
-      <p class="newsletter-note">We respect your inbox. Unsubscribe anytime.</p>
+      </div>
     </div>
   </section>
 </div>
 
+<!-- PRODUCTS PAGE -->
 <div id="products" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Our Products</h1>
-      <p>Fresh flavors crafted for every family moment</p>
-    </div>
-  </section>
 
- <div class="products-grid">
-<div id="products" class="page-section">
   <section class="page-header">
     <div class="container">
       <h1>Our Products</h1>
@@ -156,17 +115,8 @@
           <div class="product-info">
             <span class="product-badge">Bestseller</span>
             <h3>RedCrest Classic</h3>
-            <p>The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
             <div class="product-price">Rs. 2,500</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Classic', 2500, this)">Add to Cart</button>
+            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Classic',2500,this)">Add to Cart</button>
           </div>
         </div>
 
@@ -178,17 +128,8 @@
           <div class="product-info">
             <span class="product-badge badge-new">New</span>
             <h3>RedCrest Spicy</h3>
-            <p>Turn up the heat. All the richness of our classic, with a bold kick of chili. Perfect for those who like it hot.</p>
             <div class="product-price">Rs. 2,700</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Spicy', 2700, this)">Add to Cart</button>
+            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Spicy',2700,this)">Add to Cart</button>
           </div>
         </div>
 
@@ -200,17 +141,8 @@
           <div class="product-info">
             <span class="product-badge badge-limited">Limited</span>
             <h3>RedCrest Herb Infused</h3>
-            <p>Elevated everyday cooking. Classic tomato goodness with fragrant herbs and roasted garlic. Your secret ingredient.</p>
             <div class="product-price">Rs. 2,800</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Herb Infused', 2800, this)">Add to Cart</button>
+            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Herb Infused',2800,this)">Add to Cart</button>
           </div>
         </div>
 
@@ -219,254 +151,9 @@
   </section>
 </div>
 
-</div>
-
-<div id="product-detail" class="page-section">
-  <section class="product-detail-section">
-    <div class="container">
-      <div class="product-layout">
-        <div class="product-image-large">
-          <div class="image-placeholder" id="detailImage">
-            Large RedCrest Classic Jar<br><br>
-            Photographed on White Marble Counter<br>
-            with Fresh Whole Tomatoes<br>
-            and Wooden Spoon
-          </div>
-        </div>
-        
-        <div class="product-details">
-          <span class="product-badge" id="detailBadge">Bestseller</span>
-          <h1 class="product-title" id="detailTitle">RedCrest Classic</h1>
-          <div class="product-price" id="detailPrice">Rs. 2,500</div>
-          
-          <div class="product-description">
-            <p id="detailDescription">The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
-            <p style="margin-top: 1rem;">Made with the freshest ingredients and prepared hygienically in our modern facility. Every jar is crafted with care, ensuring safe, clean, and delicious results every time.</p>
-          </div>
-          
-          <div class="quantity-section">
-            <label class="quantity-label">Quantity</label>
-            <div class="quantity-controls">
-              <button class="qty-btn" onclick="updateDetailQty(-1)">-</button>
-              <span class="qty-display" id="detailQty">1</span>
-              <button class="qty-btn" onclick="updateDetailQty(1)">+</button>
-            </div>
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;" onclick="addToCartFromDetail()">Add to Cart</button>
-          <button class="btn btn-secondary" style="width: 100%;" onclick="showSection('products')">View All Products</button>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="about" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Our Story</h1>
-      <p>Made with care, trusted by families</p>
-    </div>
-  </section>
-
-  <section class="products-section">
-    <div class="container">
-      <div class="about-content">
-        <h2>Fresh Beginnings</h2>
-        <p>RedCrest was born from a simple belief: every family deserves fresh, flavorful, and safe ingredients for their daily meals. We started with one question—how can we help busy families enjoy homemade taste without spending hours in the kitchen?</p>
-        
-        <p>Our answer was to craft tomato paste the way you would at home, but with the care, hygiene, and consistency that modern families need. Every jar of RedCrest is a promise—fresh ingredients, clean preparation, and flavors your family will love.</p>
-        
-        <h2 style="margin-top: 3rem;">What Makes Us Different</h2>
-        <p>We're not just a tomato paste brand. We're a partner in your kitchen, helping you create warm, memorable family moments around the table.</p>
-        
-        <div class="values-grid">
-          <div class="value-card">
-            <div class="value-icon">🍅</div>
-            <h3>Freshness First</h3>
-            <p>We use only sun-ripened, hand-selected tomatoes. No compromises, ever. Fresh ingredients mean fresh taste.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">✨</div>
-            <h3>Hygienically Prepared</h3>
-            <p>Our modern facility follows strict hygiene standards. Every jar is prepared in a clean, safe environment you can trust.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">👨‍👩‍👧‍👦</div>
-            <h3>Family-Tested</h3>
-            <p>We test every recipe with real families. If it's not loved by parents and children alike, it doesn't make it to your table.</p>
-          </div>
-          
-          <div class="value-card">
-            <div class="value-icon">❤️</div>
-            <h3>Made with Care</h3>
-            <p>We care about your family as much as you do. That's why every jar is crafted with attention, love, and respect.</p>
-          </div>
-        </div>
-        
-        <h2>Our Promise to You</h2>
-        <p>When you choose RedCrest, you're choosing more than tomato paste. You're choosing peace of mind. You're choosing flavor without compromise. You're choosing time saved without sacrificing quality.</p>
-        
-        <div style="text-align: center; margin-top: 3rem;">
-          <button class="btn btn-primary" onclick="showSection('products')">Explore Our Products</button>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="contact" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Get in Touch</h1>
-      <p>We'd love to hear from you</p>
-    </div>
-  </section>
-
-  <section class="products-section">
-    <div class="container">
-      <div class="contact-layout">
-        <div class="contact-info">
-          <h2>Let's Connect</h2>
-          <p>Have a question about our products? Want to share feedback? Or just want to say hello? We're here to help.</p>
-          
-          <div class="info-item">
-            <span class="info-label">Email</span>
-            <span class="info-value">hello@redcrest.pk</span>
-          </div>
-          
-          <div class="info-item">
-            <span class="info-label">Phone</span>
-            <span class="info-value">+92 300 1234567</span>
-          </div>
-          
-          <div class="info-item">
-            <span class="info-label">WhatsApp</span>
-            <span class="info-value">+92 300 1234567</span>
-          </div>
-          
-          <div class="info-item">
-            <span class="info-label">Hours</span>
-            <span class="info-value">Monday - Saturday: 9AM - 6PM</span>
-          </div>
-        </div>
-        
-        <div class="contact-form-container">
-          <h2>Send Us a Message</h2>
-          <form onsubmit="return handleContactSubmit(event)">
-            <div class="form-group">
-              <label class="form-label">Your Name</label>
-              <input type="text" class="form-input" placeholder="Enter your name" required>
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label">Email Address</label>
-              <input type="email" class="form-input" placeholder="you@example.com" required>
-              <p class="form-help">We'll get back to you within 24 hours</p>
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label">Subject</label>
-              <input type="text" class="form-input" placeholder="How can we help?" required>
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label">Message</label>
-              <textarea class="form-textarea" placeholder="Tell us what's on your mind..." required></textarea>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="cart" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Your Cart</h1>
-      <p>Review your items before checkout</p>
-    </div>
-  </section>
-
-  <section class="products-section">
-    <div class="container">
-      <div id="emptyCart" class="empty-cart">
-        <div class="empty-cart-icon">🛒</div>
-        <h3>Your cart is empty</h3>
-        <p>Add some delicious RedCrest products to get started!</p>
-        <button class="btn btn-primary" onclick="showSection('products')">Shop Now</button>
-      </div>
-      
-      <div id="cartContent" class="cart-layout" style="display: none;">
-        <div class="cart-items" id="cartItemsList"></div>
-        
-        <div class="cart-summary">
-          <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
-          
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span id="cartSubtotal">Rs. 0</span>
-          </div>
-          
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span style="color: #C0392B; font-weight: 600;">Free</span>
-          </div>
-          
-          <div class="summary-row total">
-            <span>Total</span>
-            <span id="cartTotal">Rs. 0</span>
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="alert('Checkout functionality coming soon!')">Proceed to Checkout</button>
-          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="showSection('products')">Continue Shopping</button>
-          
-          <p style="text-align: center; font-size: 0.85rem; color: #7F8C8D; margin-top: 1.5rem;">
-            Free delivery on all orders
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-    <div class="footer-content">
-      <div>
-        <div class="footer-brand">RedCrest</div>
-        <p class="footer-tagline">Fresh flavors for your family table</p>
-      </div>
-      <div>
-        <h4>Products</h4>
-        <ul class="footer-links">
-          <li><a onclick="showSection('products')">Classic</a></li>
-          <li><a onclick="showSection('products')">Spicy</a></li>
-          <li><a onclick="showSection('products')">Herb Infused</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a onclick="showSection('about')">About Us</a></li>
-          <li><a onclick="showSection('contact')">Contact</a></li>
-          <li><a>Recipes</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Connect</h4>
-        <ul class="footer-links">
-          <li><a>Instagram</a></li>
-          <li><a>Facebook</a></li>
-          <li><a>WhatsApp</a></li>
-        </ul>
-      </div>
-    </div>
     <div class="footer-bottom">
       <p>&copy; 2024 RedCrest. Made with ❤️ in Pakistan.</p>
     </div>
