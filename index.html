@@ -1,244 +1,917 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RedCrest - Fresh Taste for Every Family Moment</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Redcrest Foods — Artisan Tomato Garlic Chilli Sauce, Pakistan</title>
+  <meta name="description" content="Redcrest Foods crafts small-batch, all-natural tomato garlic chilli sauce in three bold flavours: Classic, Spicy, and Herb Infused. Free home delivery across Pakistan." />
+  <link rel="canonical" href="https://redcrestfoods.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://redcrestfoods.com/" />
+  <meta property="og:title"       content="Redcrest Foods — Artisan Tomato Garlic Chilli Sauce" />
+  <meta property="og:description" content="Small-batch, all-natural chilli sauce made in Pakistan. Three bold flavours. Free delivery." />
+  <meta property="og:image"       content="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=1200&q=80" />
+  <meta property="og:locale"      content="en_PK" />
+  <meta property="og:site_name"   content="Redcrest Foods" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Redcrest Foods — Artisan Tomato Garlic Chilli Sauce" />
+  <meta name="twitter:description" content="Small-batch, all-natural chilli sauce made in Pakistan. Three bold flavours." />
+  <meta name="twitter:image"       content="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=1200&q=80" />
+
+  <!-- Favicon (inline SVG) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231d3c28'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='18' fill='%23c0392b'%3E🍅%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231d3c28'/%3E%3C/svg%3E" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Redcrest Tomato Garlic Chilli Sauce",
+    "description": "Small-batch artisan tomato garlic chilli sauce available in Classic, Spicy, and Herb Infused flavours. Made in Pakistan with all-natural ingredients.",
+    "brand": { "@type": "Brand", "name": "Redcrest Foods" },
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "2500",
+      "highPrice": "7000",
+      "priceCurrency": "PKR",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "Redcrest Foods" }
+    },
+    "image": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&q=80"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="nav-container">
-    <a class="logo" onclick="showSection('home')">RedCrest</a>
-    <ul class="nav-links">
-      <li><a onclick="showSection('products')" class="nav-link">Products</a></li>
-      <li><a onclick="showSection('about')" class="nav-link">About</a></li>
-      <li><a onclick="showSection('contact')" class="nav-link">Contact</a></li>
-      <li><a onclick="showSection('cart')" class="cart-icon" id="cartIcon">Cart (0)</a></li>
-    </ul>
+<!-- SKIP LINK -->
+<a class="skip-link" href="#order">Skip to order form</a>
+
+<!-- OFFLINE BANNER -->
+<div id="offlineBanner" role="alert" aria-live="assertive">
+  📡 You are offline — some features may be unavailable.
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Redcrest Foods home">Red<span>crest</span></a>
+    <div class="nav-links" role="list">
+      <a href="#flavours" role="listitem">Flavours</a>
+      <a href="#about"    role="listitem">Our Story</a>
+      <a href="#order"    role="listitem">Order</a>
+      <a href="#faq"      role="listitem">FAQ</a>
+    </div>
+    <div id="navAuthArea" aria-label="Account area"></div>
+    <button
+      id="hbg"
+      type="button"
+      role="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobMenu"
+      onclick="toggleMobile()"
+    >
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- HOME -->
-<div id="home" class="page-section active">
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <span class="hero-badge">Crafted with Care</span>
-          <h1>Fresh Taste, Made for Every Family Moment.</h1>
-          <p class="hero-subline">
-            Crafted with the freshest ingredients, prepared hygienically, and trusted by families who care about flavor and time.
-          </p>
-          <div class="cta-buttons">
-            <button class="btn btn-primary" onclick="showSection('products')">Place Your Order</button>
-            <button class="btn btn-secondary" onclick="showSection('products')">Explore Our Flavors</button>
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="hero-image-placeholder">
-            RedCrest Jar on Marble Counter<br>
-            Natural Light · Fresh Tomatoes Nearby
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="trust-section">
-    <div class="container">
-      <h2 class="trust-title">Made with Your Family in Mind</h2>
-      <div class="trust-grid">
-        <div class="trust-item"><div class="trust-icon">🍅</div><h4>Rich, Fresh Tomato Taste</h4><p>Sun-ripened tomatoes, carefully selected</p></div>
-        <div class="trust-item"><div class="trust-icon">⏱️</div><h4>Saves Cooking Time Instantly</h4><p>Ready when you are, no prep needed</p></div>
-        <div class="trust-item"><div class="trust-icon">👨‍👩‍👧‍👦</div><h4>Family-Tested Recipes</h4><p>Loved by families across Pakistan</p></div>
-        <div class="trust-item"><div class="trust-icon">✨</div><h4>Hygienically Prepared With Care</h4><p>Safe, clean, trusted quality</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Preview Flavors - MERGED VERSION WITH QUANTITY -->
-  <section class="products-section">
-    <div class="container">
-      <h2 class="section-header">Choose Your Flavor</h2>
-      <p class="section-subtitle">Three varieties, endless possibilities</p>
-      <div class="products-grid">
-
-        <!-- CLASSIC -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-classic.webp" alt="RedCrest Classic Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge">Bestseller</span>
-            <h3>RedCrest Classic</h3>
-            <p>The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
-            <div class="product-price">Rs. 2,500</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Classic', 2500, this)">Add to Cart</button>
-          </div>
-        </div>
-
-        <!-- SPICY -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-spicy.webp" alt="RedCrest Spicy Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-new">New</span>
-            <h3>RedCrest Spicy</h3>
-            <p>Turn up the heat. All the richness of our classic, with a bold kick of chili. Perfect for those who like it hot.</p>
-            <div class="product-price">Rs. 2,700</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Spicy', 2700, this)">Add to Cart</button>
-          </div>
-        </div>
-
-        <!-- HERB -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-herb.webp" alt="RedCrest Herb Infused Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-limited">Limited</span>
-            <h3>RedCrest Herb Infused</h3>
-            <p>Elevated everyday cooking. Classic tomato goodness with fragrant herbs and roasted garlic. Your secret ingredient.</p>
-            <div class="product-price">Rs. 2,800</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:100%;" onclick="addToCart('RedCrest Herb Infused', 2800, this)">Add to Cart</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+<!-- MOBILE MENU -->
+<div id="mobMenu" role="dialog" aria-label="Mobile navigation menu" aria-modal="true">
+  <button class="mob-menu-close" type="button" aria-label="Close menu" onclick="toggleMobile()">✕</button>
+  <nav class="mob-menu">
+    <a href="#flavours">Flavours</a>
+    <a href="#about">Our Story</a>
+    <a href="#order">Order</a>
+    <a href="#faq">FAQ</a>
+  </nav>
 </div>
 
-<!-- PRODUCTS PAGE - SAME DETAILED CARDS -->
-<div id="products" class="page-section">
-  <section class="page-header">
-    <div class="container">
-      <h1>Our Products</h1>
-      <p>Fresh flavors crafted for every family moment</p>
-    </div>
-  </section>
-
-  <section class="products-section">
-    <div class="container">
-      <div class="products-grid">
-
-        <!-- CLASSIC -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-classic.webp" alt="RedCrest Classic Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge">Bestseller</span>
-            <h3>RedCrest Classic</h3>
-            <p>The one that started it all. Sun-ripened tomatoes, slow-cooked for that deep, authentic flavor your family will love.</p>
-            <div class="product-price">Rs. 2,500</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Classic', 2500, this)">Add to Cart</button>
-          </div>
-        </div>
-
-        <!-- SPICY -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-spicy.webp" alt="RedCrest Spicy Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-new">New</span>
-            <h3>RedCrest Spicy</h3>
-            <p>Turn up the heat. All the richness of our classic, with a bold kick of chili. Perfect for those who like it hot.</p>
-            <div class="product-price">Rs. 2,700</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Spicy', 2700, this)">Add to Cart</button>
-          </div>
-        </div>
-
-        <!-- HERB -->
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/redcrest-herb.webp" alt="RedCrest Herb Infused Tomato Paste">
-          </div>
-          <div class="product-info">
-            <span class="product-badge badge-limited">Limited</span>
-            <h3>RedCrest Herb Infused</h3>
-            <p>Elevated everyday cooking. Classic tomato goodness with fragrant herbs and roasted garlic. Your secret ingredient.</p>
-            <div class="product-price">Rs. 2,800</div>
-            <div class="quantity-selector">
-              <span class="quantity-label">Quantity:</span>
-              <div class="quantity-controls">
-                <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                <span class="qty-display">1</span>
-                <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('RedCrest Herb Infused', 2800, this)">Add to Cart</button>
-          </div>
-        </div>
-
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="home" aria-label="Hero section">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="dot" aria-hidden="true"></span>
+        Small-Batch · All Natural · Made in Pakistan
+      </div>
+      <h1>Bold Sauce.<br /><em>Real Flavour.</em><br />Zero Compromise.</h1>
+      <p class="hero-sub">Handcrafted tomato garlic chilli sauce made with sun-ripened tomatoes and no artificial anything. Three flavours, one obsession.</p>
+      <div class="hero-ctas">
+        <a href="#order" class="btn btn-ink btn-lg">Order Now · Rs. 2,500</a>
+        <a href="#flavours" class="btn btn-outline btn-lg">Explore Flavours</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item"><span>🚚</span><span>Free delivery on orders over Rs. 2,000</span></div>
+        <div class="hero-trust-item"><span>🌿</span><span>No preservatives, no artificial colours</span></div>
+        <div class="hero-trust-item"><span>🎁</span><span>Buy 5 Get 1 Free loyalty reward</span></div>
       </div>
     </div>
-  </section>
+    <div class="hero-photos" aria-hidden="true">
+      <div class="hjar-photo-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&q=75"
+          alt="Classic Redcrest chilli sauce jar"
+          width="600" height="800"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hjar-photo-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=75"
+          alt="Fresh tomatoes and chillies used in Redcrest sauce"
+          width="600" height="800"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MARQUEE ═══════════════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">🍅 Sun-Ripened Tomatoes</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🌶️ Bold Chilli Heat</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🧄 Roasted Garlic</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🌿 No Preservatives</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🇵🇰 Made in Pakistan</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🎁 Buy 5 Get 1 Free</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🚚 Nationwide Delivery</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">✨ Small Batch Crafted</span><span class="marquee-sep">✦</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">🍅 Sun-Ripened Tomatoes</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🌶️ Bold Chilli Heat</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🧄 Roasted Garlic</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🌿 No Preservatives</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🇵🇰 Made in Pakistan</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🎁 Buy 5 Get 1 Free</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">🚚 Nationwide Delivery</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">✨ Small Batch Crafted</span><span class="marquee-sep">✦</span>
+  </div>
 </div>
 
-<!-- Add your About, Contact, Cart sections here -->
-<!-- They were mentioned as unchanged in your original code -->
+<!-- ═══════════════════ FLAVOURS ═══════════════════ -->
+<section id="flavours" class="section" aria-labelledby="flavours-heading">
+  <div class="container">
+    <span class="section-label">Our Flavours</span>
+    <h2 id="flavours-heading" style="color:var(--green);margin-bottom:2.5rem">Three Sauces.<br />One Obsession.</h2>
+    <div class="fi-grid">
+
+      <!-- Classic -->
+      <article class="fi-card reveal" aria-label="Classic Redcrest sauce">
+        <div class="fi-art-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=500&q=75"
+            alt="Classic Redcrest tomato garlic sauce jar"
+            width="500" height="375" loading="lazy"
+          />
+          <div class="fi-badge">Bestseller</div>
+        </div>
+        <div class="fi-body">
+          <div class="fi-name">Classic Redcrest</div>
+          <p class="fi-desc">The original. Rich sun-ripened tomato, slow-roasted garlic, a measured chilli warmth. Balanced, bold, and endlessly versatile — perfect for everything from dipping to marinating.</p>
+          <div class="fi-price">Rs. 2,500 <span>/ 300g jar</span></div>
+          <div class="fi-btn-row">
+            <a
+              href="https://wa.me/923189384265"
+              class="btn btn-wa"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="return waFlavor('Classic',this)"
+              aria-label="Order Classic Redcrest via WhatsApp"
+            >WhatsApp Order</a>
+            <a href="#order" class="btn btn-outline btn-sm" onclick="document.getElementById('oFlavor').value='Classic';updateDeliverySummary();">Order Classic →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Spicy -->
+      <article class="fi-card reveal" aria-label="Spicy Redcrest sauce">
+        <div class="fi-art-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&q=75"
+            alt="Spicy Redcrest chilli sauce jar"
+            width="500" height="375" loading="lazy"
+          />
+          <div class="fi-badge" style="background:var(--red)">Extra Kick</div>
+        </div>
+        <div class="fi-body">
+          <div class="fi-name">Spicy Redcrest</div>
+          <p class="fi-desc">For those who want fire with their flavour. Double-chilli heat, smoked paprika, and the same depth of slow-roasted garlic. Complex heat that builds and stays.</p>
+          <div class="fi-price">Rs. 2,500 <span>/ 300g jar</span></div>
+          <div class="fi-btn-row">
+            <a
+              href="https://wa.me/923189384265"
+              class="btn btn-wa"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="return waFlavor('Spicy',this)"
+              aria-label="Order Spicy Redcrest via WhatsApp"
+            >WhatsApp Order</a>
+            <a href="#order" class="btn btn-outline btn-sm" onclick="document.getElementById('oFlavor').value='Spicy';updateDeliverySummary();">Order Spicy →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Herb Infused -->
+      <article class="fi-card reveal" aria-label="Herb Infused Redcrest sauce">
+        <div class="fi-art-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1571167530149-c1105da4b0fe?w=500&q=75"
+            alt="Herb Infused Redcrest sauce with fresh herbs"
+            width="500" height="375" loading="lazy"
+          />
+          <div class="fi-badge" style="background:var(--green-light)">Garden Fresh</div>
+        </div>
+        <div class="fi-body">
+          <div class="fi-name">Herb Infused</div>
+          <p class="fi-desc">Fresh basil, oregano, and rosemary woven into our signature tomato base. Lighter heat, brighter character — spectacular on pasta, pizza, grilled vegetables, and flatbreads.</p>
+          <div class="fi-price">Rs. 2,500 <span>/ 300g jar</span></div>
+          <div class="fi-btn-row">
+            <a
+              href="https://wa.me/923189384265"
+              class="btn btn-wa"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="return waFlavor('Herb Infused',this)"
+              aria-label="Order Herb Infused Redcrest via WhatsApp"
+            >WhatsApp Order</a>
+            <a href="#order" class="btn btn-outline btn-sm" onclick="document.getElementById('oFlavor').value='Herb Infused';updateDeliverySummary();">Order Herb →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Assorted -->
+      <article class="fi-card reveal" aria-label="Assorted Redcrest pack">
+        <div class="fi-art-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500&q=75"
+            alt="Assorted pack of Redcrest sauce jars"
+            width="500" height="375" loading="lazy"
+          />
+          <div class="fi-badge" style="background:var(--gold);color:var(--green)">Best Value</div>
+        </div>
+        <div class="fi-body">
+          <div class="fi-name">Assorted Pack</div>
+          <p class="fi-desc">Can't choose? Don't. Get all three flavours in one curated gift pack. The perfect starter set or present for the sauce lover in your life.</p>
+          <div class="fi-price">Rs. 7,000 <span>/ 3-jar gift pack</span></div>
+          <div class="fi-btn-row">
+            <a
+              href="https://wa.me/923189384265"
+              class="btn btn-wa"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="return waFlavor('Assorted',this)"
+              aria-label="Order Assorted Pack via WhatsApp"
+            >WhatsApp Order</a>
+            <a href="#order" class="btn btn-outline btn-sm" onclick="document.getElementById('oFlavor').value='Assorted';updateDeliverySummary();">Order Pack →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PHILOSOPHY ═══════════════════ -->
+<section class="section phil-section" aria-labelledby="phil-heading">
+  <div class="container">
+    <span class="section-label" style="color:var(--gold)">Our Philosophy</span>
+    <h2 id="phil-heading" style="color:#fff;margin-bottom:2.5rem">Made With Intention,<br />Not With Shortcuts.</h2>
+    <div class="phil-grid">
+      <div class="phil-card reveal">
+        <div class="phil-icon">🍅</div>
+        <h3>Real Tomatoes Only</h3>
+        <p>We source sun-ripened tomatoes at peak season and process them the same day. No concentrate, no puree — real fruit, real flavour.</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">🚫</div>
+        <h3>Nothing Artificial</h3>
+        <p>No preservatives, no artificial colours, no flavour enhancers. What you taste is exactly what we put in.</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">🤲</div>
+        <h3>Small-Batch Craft</h3>
+        <p>Every batch is made in small quantities so we can control quality at every step. No factory lines, no shortcuts.</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">🇵🇰</div>
+        <h3>Proudly Pakistani</h3>
+        <p>Made in Pakistan, for Pakistan. Supporting local farmers and proving that world-class artisan food can come from right here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section id="about" class="section" aria-labelledby="about-heading">
+  <div class="container about-grid">
+    <div class="about-img-wrap reveal">
+      <img
+        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=75"
+        alt="Freshly made Redcrest sauce being prepared"
+        width="700" height="525" loading="lazy"
+      />
+      <div class="about-img-badge">
+        <strong>2020</strong>
+        Founded in Lahore
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <span class="section-label">Our Story</span>
+      <h2 id="about-heading" style="color:var(--green)">Started in a Kitchen.<br />Stayed That Way.</h2>
+      <p>Redcrest Foods began when we got tired of buying sauce that tasted like a chemistry experiment. We wanted something real — made with actual tomatoes, actual garlic, and actual care.</p>
+      <p>What started as batches for friends and family grew into something bigger when word spread that this was sauce that actually tasted of something. We've been handcrafting every jar since 2020, and we have no plans to change how we do it.</p>
+      <div class="about-stats">
+        <div class="about-stat"><span>500+</span><small>Happy Customers</small></div>
+        <div class="about-stat"><span>3</span><small>Signature Flavours</small></div>
+        <div class="about-stat"><span>100%</span><small>Natural Ingredients</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ORDER SECTION ═══════════════════ -->
+<section id="order" class="section order-section" aria-labelledby="order-heading">
+  <div class="container">
+    <span class="section-label">Place Your Order</span>
+    <h2 id="order-heading" style="color:var(--green);margin-bottom:2.5rem">Order Direct.<br />Fast &amp; Simple.</h2>
+    <div class="order-grid">
+
+      <!-- FORM -->
+      <div class="order-form-wrap" role="region" aria-label="Order form">
+        <h3>Your Details</h3>
+
+        <!-- Rewards badges -->
+        <div id="orderDiscountBadge" class="reward-badge rewards-locked-target" aria-live="polite" aria-label="Discount reward applied">
+          🎟 <span id="orderDiscountPct">10%</span> OFF Applied!
+          <button type="button" class="remove-disc-btn" onclick="removeDiscount()" aria-label="Remove discount">✕</button>
+        </div>
+        <div id="orderFreeJarBadge" class="reward-badge rewards-locked-target" aria-live="polite" aria-label="Free jar reward applied" style="background:linear-gradient(135deg,#14532d,#15803d);color:#fff;">
+          🎁 <span class="fj-text">Free Jar Added!</span>
+        </div>
+
+        <form id="orderForm" novalidate onsubmit="event.preventDefault(); handleOrder();">
+          <!-- Name row -->
+          <div class="form-row">
+            <div class="fg">
+              <label for="oFirst">First Name <span aria-hidden="true">*</span></label>
+              <input
+                type="text" id="oFirst" name="firstName" required autocomplete="given-name"
+                placeholder="Ahmed" aria-describedby="errOFirst"
+                oninput="clearFieldErr('oFirst')"
+              />
+              <span id="errOFirst" class="field-err" role="alert"></span>
+            </div>
+            <div class="fg">
+              <label for="oLast">Last Name <span aria-hidden="true">*</span></label>
+              <input
+                type="text" id="oLast" name="lastName" required autocomplete="family-name"
+                placeholder="Khan" aria-describedby="errOLast"
+                oninput="clearFieldErr('oLast')"
+              />
+              <span id="errOLast" class="field-err" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Contact row -->
+          <div class="form-row">
+            <div class="fg">
+              <label for="oEmail">Email Address <span aria-hidden="true">*</span></label>
+              <input
+                type="email" id="oEmail" name="email" required autocomplete="email"
+                placeholder="ahmed@example.com" aria-describedby="errOEmail"
+                oninput="clearFieldErr('oEmail')"
+              />
+              <span id="errOEmail" class="field-err" role="alert"></span>
+            </div>
+            <div class="fg">
+              <label for="oPhone">Phone Number <span aria-hidden="true">*</span></label>
+              <input
+                type="tel" id="oPhone" name="phone" required autocomplete="tel"
+                placeholder="0300-1234567" aria-describedby="errOPhone"
+                oninput="clearFieldErr('oPhone')"
+              />
+              <span id="errOPhone" class="field-err" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Flavour + Qty -->
+          <div class="form-row">
+            <div class="fg">
+              <label for="oFlavor">Flavour <span aria-hidden="true">*</span></label>
+              <select
+                id="oFlavor" name="flavor" required
+                aria-describedby="errOFlavor"
+                onchange="updateDeliverySummary(); clearFieldErr('oFlavor');"
+              >
+                <option value="">Select a flavour…</option>
+                <option value="Classic">Classic Redcrest — Rs. 2,500</option>
+                <option value="Spicy">Spicy Redcrest — Rs. 2,500</option>
+                <option value="Herb Infused">Herb Infused — Rs. 2,500</option>
+                <option value="Assorted">Assorted 3-Pack — Rs. 7,000</option>
+              </select>
+              <span id="errOFlavor" class="field-err" role="alert"></span>
+            </div>
+            <div class="fg">
+              <label for="oQty">Quantity (Jars) <span aria-hidden="true">*</span></label>
+              <select
+                id="oQty" name="qty" required
+                aria-describedby="errOQty"
+                onchange="updateDeliverySummary(); clearFieldErr('oQty');"
+              >
+                <option value="1">1 jar</option>
+                <option value="2">2 jars</option>
+                <option value="3">3 jars</option>
+                <option value="4">4 jars</option>
+                <option value="5">5 jars</option>
+                <option value="6">6 jars</option>
+                <option value="10">10 jars</option>
+              </select>
+              <span id="errOQty" class="field-err" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="fg">
+            <label for="oAddress">Delivery Address <span aria-hidden="true">*</span></label>
+            <input
+              type="text" id="oAddress" name="address" required autocomplete="street-address"
+              placeholder="House 12, Street 4, Block B, DHA Phase 6, Lahore"
+              aria-describedby="errOAddress"
+              oninput="clearFieldErr('oAddress')"
+            />
+            <span id="errOAddress" class="field-err" role="alert"></span>
+          </div>
+
+          <!-- City -->
+          <div class="fg">
+            <label for="oCity">City <span aria-hidden="true">*</span></label>
+            <select
+              id="oCity" name="city" required
+              aria-describedby="errOCity"
+              onchange="updateDeliverySummary(); clearFieldErr('oCity');"
+            >
+              <option value="">Select your city…</option>
+              <option value="Lahore">Lahore</option>
+              <option value="Karachi">Karachi</option>
+              <option value="Islamabad">Islamabad</option>
+              <option value="Rawalpindi">Rawalpindi</option>
+              <option value="Faisalabad">Faisalabad</option>
+              <option value="Multan">Multan</option>
+              <option value="Peshawar">Peshawar</option>
+              <option value="Quetta">Quetta</option>
+              <option value="Sialkot">Sialkot</option>
+              <option value="Gujranwala">Gujranwala</option>
+              <option value="Other">Other (Pakistan)</option>
+              <option value="Out of Pakistan">Outside Pakistan</option>
+            </select>
+            <span id="errOCity" class="field-err" role="alert"></span>
+            <div id="outOfPkMsg" class="out-of-pk-msg" role="alert">
+              ⚠️ Sorry, we currently deliver within Pakistan only. For international enquiries, please <a href="https://wa.me/923189384265" target="_blank" rel="noopener noreferrer" style="color:var(--red)">contact us on WhatsApp</a>.
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="fg">
+            <label for="oMessage">Special Request <span style="font-weight:300;opacity:.6">(optional)</span></label>
+            <textarea
+              id="oMessage" name="message" rows="2"
+              placeholder="Any special instructions, gift message, or notes for your order…"
+              aria-describedby="errOMessage"
+            ></textarea>
+            <span id="errOMessage" class="field-err" role="alert"></span>
+          </div>
+
+          <!-- Payment Method -->
+          <fieldset style="border:none;padding:0;margin:0 0 1rem">
+            <legend style="font-size:.8rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem">Payment Method</legend>
+            <div class="pay-opts" role="group" aria-label="Select payment method">
+              <button type="button" id="payOptCOD"    class="pay-opt active" onclick="selectPayMethod('cod')"    aria-pressed="true">
+                <span class="pay-opt-icon">💵</span>Cash on Delivery
+              </button>
+              <button type="button" id="payOptManual" class="pay-opt"        onclick="selectPayMethod('manual')" aria-pressed="false">
+                <span class="pay-opt-icon">🏦</span>Bank Transfer
+              </button>
+              <button type="button" id="payOptOnline" class="pay-opt"        onclick="selectPayMethod('online')" aria-pressed="false">
+                <span class="pay-opt-icon">📱</span>Online (Soon)
+              </button>
+            </div>
+
+            <!-- Manual payment panel -->
+            <div id="payManualPanel" class="pay-manual-panel" aria-label="Bank transfer details">
+              <div class="pay-method-tabs" role="group" aria-label="Select bank transfer method">
+                <button type="button" class="pay-method-tab active" onclick="selectManualMethod(this,'bank')">🏦 Meezan Bank</button>
+                <button type="button" class="pay-method-tab"        onclick="selectManualMethod(this,'easypaisa')">📱 Easypaisa</button>
+                <button type="button" class="pay-method-tab"        onclick="selectManualMethod(this,'jazzcash')">💚 JazzCash</button>
+              </div>
+
+              <div id="manualBank" class="pay-detail" style="display:block">
+                <div class="pay-detail-row"><span class="pay-detail-icon">🏦</span><span class="pay-detail-key">Bank</span><span class="pay-detail-val">Meezan Bank</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">👤</span><span class="pay-detail-key">Account Title</span><span class="pay-detail-val">Abdullah</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">🔢</span><span class="pay-detail-key">Account Number</span><span class="pay-detail-val">03810108364902</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">📋</span><span class="pay-detail-key">IBAN</span><span class="pay-detail-val">PK64MEZN0003810108364902</span></div>
+              </div>
+              <div id="manualEasypaisa" class="pay-detail" style="display:none">
+                <div class="pay-detail-row"><span class="pay-detail-icon">👤</span><span class="pay-detail-key">Name</span><span class="pay-detail-val">Abdullah Abdullah</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">📱</span><span class="pay-detail-key">Number</span><span class="pay-detail-val">03189384265</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">ℹ️</span><span class="pay-detail-key">Instructions</span><span class="pay-detail-val">Transfer payment then upload screenshot below.</span></div>
+              </div>
+              <div id="manualJazzcash" class="pay-detail" style="display:none">
+                <div class="pay-detail-row"><span class="pay-detail-icon">👤</span><span class="pay-detail-key">Name</span><span class="pay-detail-val">Abdullah</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">📱</span><span class="pay-detail-key">Number</span><span class="pay-detail-val">03258498579</span></div>
+                <div class="pay-detail-row"><span class="pay-detail-icon">ℹ️</span><span class="pay-detail-key">Instructions</span><span class="pay-detail-val">Transfer payment then upload screenshot below.</span></div>
+              </div>
+
+              <!-- Screenshot upload -->
+              <div class="upload-area" id="screenshotUploadArea">
+                <label class="upload-label" for="paymentScreenshot">
+                  📎 <strong>Upload payment screenshot</strong> (optional but helps us confirm faster)
+                </label>
+                <input
+                  type="file" id="paymentScreenshot" accept="image/*"
+                  aria-label="Upload payment screenshot"
+                  onchange="handleScreenshotUpload(this)"
+                />
+                <span id="uploadFilename" class="upload-filename" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <!-- Online waitlist -->
+            <div id="payOnlinePanel" style="display:none;margin-top:.5rem">
+              <p style="font-size:.85rem;color:var(--muted);margin-bottom:.6rem">Online payments are coming soon. Join the waitlist to be notified first.</p>
+              <button type="button" class="btn btn-outline btn-sm" onclick="joinOnlineWaitlist()">🔔 Join Waitlist</button>
+            </div>
+          </fieldset>
+
+          <!-- Form error -->
+          <div id="orderError" class="form-err" role="alert"></div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="placeOrderBtn"
+            class="btn btn-ink btn-lg form-submit"
+            aria-describedby="orderError"
+          >
+            Place My Order →
+          </button>
+        </form>
+
+        <p style="font-size:.75rem;color:var(--muted);margin-top:.85rem;text-align:center;line-height:1.55">
+          Prefer WhatsApp? <a href="https://wa.me/923189384265" target="_blank" rel="noopener noreferrer" style="color:var(--green);font-weight:600" onclick="return buildWaOrderLink(this)">Send your order directly →</a>
+        </p>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <aside class="order-summary-card" aria-label="Order summary">
+        <h3>Order Summary</h3>
+        <div class="oss-rows">
+          <div class="oss-row">
+            <span class="oss-label">Subtotal</span>
+            <span class="oss-value" id="osSubtotal">Select flavour to see total</span>
+          </div>
+          <div class="oss-row" id="osDeliveryRow">
+            <span class="oss-label">Delivery</span>
+            <span class="oss-value" id="osDelivery">Rs. 200</span>
+          </div>
+          <div class="oss-row oss-total" style="border-top:1px solid rgba(255,255,255,.2);padding-top:.75rem;margin-top:.25rem">
+            <span class="oss-label">Total</span>
+            <span class="oss-value" id="osTotal">—</span>
+          </div>
+        </div>
+        <div class="delivery-note" id="osDeliveryNote"></div>
+        <div class="oss-info">
+          <div class="oss-info-item"><span class="oss-info-icon">🚚</span><span>Free delivery on orders Rs. 2,000+</span></div>
+          <div class="oss-info-item"><span class="oss-info-icon">💳</span><span>Cash on delivery nationwide</span></div>
+          <div class="oss-info-item"><span class="oss-info-icon">📦</span><span>Dispatched within 1–2 business days</span></div>
+          <div class="oss-info-item"><span class="oss-info-icon">🎁</span><span>Buy 5 Get 1 Free — auto applied with account</span></div>
+          <div class="oss-info-item"><span class="oss-info-icon">📞</span><span>Questions? Call or WhatsApp 0318-9384265</span></div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section id="faq" class="section" aria-labelledby="faq-heading">
+  <div class="container" style="max-width:760px">
+    <span class="section-label">Questions</span>
+    <h2 id="faq-heading" style="color:var(--green);margin-bottom:2rem">Frequently Asked</h2>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-1">
+          What are your delivery timelines?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-1" hidden>
+          <p>Orders are dispatched within 1–2 business days of confirmation. Delivery to Lahore, Karachi, and Islamabad typically takes 1–3 days; other cities 3–5 business days. We'll confirm your order via email or WhatsApp within 24 hours.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-2">
+          Do you offer free delivery?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-2" hidden>
+          <p>Yes! Orders over Rs. 2,000 qualify for free delivery nationwide. For orders below Rs. 2,000, a flat delivery fee of Rs. 200 applies (Rs. 150 for Karachi).</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-3">
+          What payment methods do you accept?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-3" hidden>
+          <p>We accept Cash on Delivery (COD) nationwide, as well as bank transfer via Meezan Bank, Easypaisa, and JazzCash. Online card payments are coming soon — join the waitlist in the order form.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-4">
+          How does the Buy 5 Get 1 Free loyalty reward work?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-4" hidden>
+          <p>Create a free Redcrest account to join our loyalty programme. Every jar you order counts toward your total. When you hit 5 jars, a free jar is automatically added to your next order. It's tracked in your dashboard and applied seamlessly at checkout.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-5">
+          What are scratch card discounts?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-5" hidden>
+          <p>Every time you create an account or place an order, you receive a virtual scratch card with a 10% or 20% discount. Scratch to reveal your reward — it's automatically applied to your next order when you're signed in.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-6">
+          Are your sauces suitable for all ages?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-6" hidden>
+          <p>Our Classic and Herb Infused flavours have a mild, family-friendly heat level suitable for most ages. The Spicy flavour is quite hot and recommended for those who enjoy bold chilli. All products are free from artificial additives.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-7">
+          What is the shelf life and how should I store the sauce?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-7" hidden>
+          <p>Unopened jars last 12 months stored in a cool, dry place away from direct sunlight. Once opened, refrigerate and use within 4–6 weeks for best flavour. Always use a clean, dry spoon to maintain quality.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-ans-8">
+          Can I place bulk orders for events or gifting?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-ans-8" hidden>
+          <p>Absolutely! We welcome bulk orders for weddings, corporate gifting, and events. WhatsApp us at 0318-9384265 or email abaky913@gmail.com and we'll arrange custom pricing and packaging for larger quantities.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Red<span>crest</span> Foods</h3>
+        <p>Small-batch artisan tomato garlic chilli sauce. Made in Pakistan. No shortcuts.</p>
+        <div style="margin-top:1.25rem;display:flex;gap:.65rem;flex-wrap:wrap">
+          <a href="https://wa.me/923189384265" target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-sm" aria-label="Chat on WhatsApp">💬 WhatsApp</a>
+          <a href="mailto:abaky913@gmail.com" class="btn btn-outline btn-sm" style="color:#fff;border-color:rgba(255,255,255,.35)" aria-label="Send us an email">✉️ Email</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#flavours">Flavours</a>
+        <a href="#about">Our Story</a>
+        <a href="#order">Order Now</a>
+        <a href="#faq">FAQ</a>
+        <button type="button" id="footerDashBtn" onclick="openModal('dashModal');renderDashboard();" style="display:none">My Dashboard</button>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <button type="button" onclick="openModal('legalModal');document.getElementById('legalTabTerms').click()">Terms of Service</button>
+        <button type="button" onclick="openModal('legalModal');document.getElementById('legalTabPrivacy').click()">Privacy Policy</button>
+        <a href="mailto:abaky913@gmail.com">Contact Us</a>
+        <a href="tel:+923189384265">0318-9384265</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Redcrest Foods. All rights reserved.</span>
+      <span>Made with ❤️ in Pakistan</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════ -->
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" aria-describedby="authModalDesc">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h2 id="authModalTitle">Your Account</h2>
+        <p id="authModalDesc" class="modal-desc">Sign in to access loyalty rewards and order history.</p>
+      </div>
+      <button class="modal-close" type="button" onclick="closeModal('authModal')" aria-label="Close sign-in dialog">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs" role="tablist" aria-label="Authentication options">
+        <button class="modal-tab active" type="button" role="tab" aria-selected="true"  id="tabLogin"    onclick="switchAuthTab('login')">Sign In</button>
+        <button class="modal-tab"        type="button" role="tab" aria-selected="false" id="tabRegister" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <!-- Login panel -->
+      <div id="loginPanel" class="auth-panel active" role="tabpanel" aria-labelledby="tabLogin">
+        <div class="fg">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="loginEmail" autocomplete="email" placeholder="you@example.com" aria-describedby="loginError" />
+        </div>
+        <div class="fg">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="loginPassword" autocomplete="current-password" placeholder="••••••••" aria-describedby="loginError" />
+        </div>
+        <div id="loginError" class="form-err" role="alert"></div>
+        <button type="button" class="btn btn-ink" style="width:100%" onclick="handleLogin()">Sign In →</button>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.85rem;text-align:center">
+          No account? <button type="button" class="auth-link" onclick="switchAuthTab('register')">Create one free →</button>
+        </p>
+      </div>
+
+      <!-- Register panel -->
+      <div id="registerPanel" class="auth-panel" role="tabpanel" aria-labelledby="tabRegister">
+        <div class="form-row">
+          <div class="fg">
+            <label for="regFirst">First Name</label>
+            <input type="text" id="regFirst" name="regFirst" autocomplete="given-name" placeholder="Ahmed" aria-describedby="regError" />
+          </div>
+          <div class="fg">
+            <label for="regLast">Last Name</label>
+            <input type="text" id="regLast" name="regLast" autocomplete="family-name" placeholder="Khan" aria-describedby="regError" />
+          </div>
+        </div>
+        <div class="fg">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" name="regEmail" autocomplete="email" placeholder="you@example.com" aria-describedby="regError" />
+        </div>
+        <div class="fg">
+          <label for="regPassword">Password <span style="font-weight:300;opacity:.6">(min 6 characters)</span></label>
+          <input type="password" id="regPassword" name="regPassword" autocomplete="new-password" placeholder="••••••••" minlength="6" maxlength="128" aria-describedby="regError" />
+        </div>
+        <div id="regError" class="form-err" role="alert"></div>
+        <button type="button" class="btn btn-ink" style="width:100%" onclick="handleRegister()">Create Account →</button>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.85rem;text-align:center">
+          Have an account? <button type="button" class="auth-link" onclick="switchAuthTab('login')">Sign in →</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD MODAL -->
+<div id="dashModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="dashModalTitle" aria-describedby="dashModalDesc">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h2 id="dashModalTitle">My Dashboard</h2>
+        <p id="dashModalDesc" class="modal-desc">Your orders, rewards, and loyalty benefits.</p>
+      </div>
+      <button class="modal-close" type="button" onclick="closeModal('dashModal')" aria-label="Close dashboard">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="dashStatsGrid" class="dash-stats-grid" aria-label="Loyalty statistics"></div>
+      <div id="dashDiscountsSection" aria-label="Available discounts"></div>
+      <div class="orders-title">Order History</div>
+      <div id="dashOrdersList" aria-label="Order history" aria-live="polite"></div>
+      <button type="button" class="btn btn-outline btn-sm dash-logout-btn" onclick="handleLogout()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRATCH CARD MODAL -->
+<div id="scratchModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="scratchModalTitle" aria-describedby="scratchModalSub">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h2 id="scratchModalTitle">🎉 You've Earned a Reward!</h2>
+        <p id="scratchModalSub" class="modal-desc">Scratch to reveal your discount.</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="scratch-container" id="scratchContainer">
+        <div class="scratch-prize" aria-label="Scratch card prize display">
+          <div class="scratch-pct-val" id="scratchPct" aria-live="polite">—</div>
+          <div class="scratch-pct-off">% OFF</div>
+        </div>
+        <canvas
+          id="scratchCanvas"
+          role="img"
+          aria-label="Scratch card — click and drag to reveal your discount"
+          tabindex="0"
+        ></canvas>
+      </div>
+      <div id="scratchResult" class="scratch-result" aria-live="polite"></div>
+      <button
+        type="button"
+        id="scratchCloseBtn"
+        class="btn btn-ink"
+        style="width:100%;display:none"
+        onclick="closeScratchAndSave()"
+      >Save Discount &amp; Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEGAL MODAL -->
+<div id="legalModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalDesc">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h2 id="legalModalTitle">Legal</h2>
+        <p id="legalModalDesc" class="modal-desc">Terms of Service and Privacy Policy.</p>
+      </div>
+      <button class="modal-close" type="button" onclick="closeModal('legalModal')" aria-label="Close legal dialog">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs" role="tablist">
+        <button class="modal-tab active" type="button" role="tab" id="legalTabTerms"   onclick="this.classList.add('active');document.getElementById('legalTabPrivacy').classList.remove('active');document.getElementById('legalTerms').style.display='block';document.getElementById('legalPrivacy').style.display='none'">Terms of Service</button>
+        <button class="modal-tab"        type="button" role="tab" id="legalTabPrivacy" onclick="this.classList.add('active');document.getElementById('legalTabTerms').classList.remove('active');document.getElementById('legalPrivacy').style.display='block';document.getElementById('legalTerms').style.display='none'">Privacy Policy</button>
+      </div>
+      <div id="legalTerms" class="legal-body">
+        <h3>1. Orders &amp; Payment</h3>
+        <p>By placing an order you agree to provide accurate delivery and contact information. Orders are confirmed via email or WhatsApp within 24 hours. We reserve the right to cancel orders where delivery is not feasible.</p>
+        <h3>2. Delivery</h3>
+        <p>We deliver within Pakistan only. Delivery timelines are estimates and may vary due to courier conditions. Free delivery applies to orders over Rs. 2,000. A standard fee of Rs. 200 (Rs. 150 in Karachi) applies to smaller orders.</p>
+        <h3>3. Returns &amp; Refunds</h3>
+        <p>If your order arrives damaged or incorrect, contact us within 48 hours via WhatsApp or email. We will arrange a replacement or refund at our discretion. We do not accept returns on food products due to hygiene regulations.</p>
+        <h3>4. Loyalty &amp; Discounts</h3>
+        <p>Loyalty rewards and scratch card discounts are non-transferable and have no cash value. We reserve the right to modify or discontinue the loyalty programme at any time with prior notice.</p>
+        <h3>5. Contact</h3>
+        <p>For any queries: <a href="mailto:abaky913@gmail.com" style="color:var(--green)">abaky913@gmail.com</a> or WhatsApp 0318-9384265.</p>
+      </div>
+      <div id="legalPrivacy" class="legal-body" style="display:none">
+        <h3>1. Information We Collect</h3>
+        <p>We collect information you provide when placing orders: name, email address, phone number, and delivery address. We also collect account information if you create a Redcrest account.</p>
+        <h3>2. How We Use Your Information</h3>
+        <p>Your information is used exclusively to process orders, confirm deliveries, and provide loyalty rewards. We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+        <h3>3. Data Storage</h3>
+        <p>Order and account data is stored securely via Supabase (Postgres). Payment screenshots are stored in encrypted cloud storage. We retain order data for up to 3 years for accounting and dispute resolution purposes.</p>
+        <h3>4. Cookies &amp; Local Storage</h3>
+        <p>We use browser local storage to maintain your session and rate-limit order submissions. No third-party tracking cookies are used.</p>
+        <h3>5. Your Rights</h3>
+        <p>You may request deletion of your account and associated data at any time by emailing abaky913@gmail.com. We will process requests within 30 days.</p>
+        <h3>6. Contact</h3>
+        <p>Privacy enquiries: <a href="mailto:abaky913@gmail.com" style="color:var(--green)">abaky913@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS modules -->
+<script type="module" src="js/app.js"></script>
 
 </body>
 </html>
-<nav class="navbar">
-  <div class="nav-container">
-    <a class="logo" onclick="showSection('home')">RedCrest</a>
-    
-    <!-- Mobile hamburger - HIDDEN ON DESKTOP -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-    
-    <!-- Desktop nav links -->
-    <ul class="nav-links">
-      <li><a onclick="showSection('products')" class="nav-link" data-section="products">Products</a></li>
-      <li><a onclick="showSection('about')" class="nav-link" data-section="about">About</a></li>
-      <li><a onclick="showSection('contact')" class="nav-link" data-section="contact">Contact</a></li>
-      <li><a onclick="showSection('cart')" class="cart-icon" id="cartIcon">Cart (0)</a></li>
-    </ul>
-  </div>
-</nav>
